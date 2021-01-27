@@ -1,0 +1,15 @@
+{% extends "common/home.html" %}
+{% load static %}
+
+{% block base_navbar_lang_sel %}
+{% include "common/pt/nav.pt.html" %}
+{% endblock %}
+
+{% block home_app_tagline %}{% if site_settings.tagline_POR %} {{ site_settings.tagline_POR }} {% else %} {{'Projeto Marjory'}} {% endif %}{% endblock %}
+{% block home_app_about %}{% if site_settings.about_POR %} {{site_settings.about_POR}} {% endif %}{% endblock %}
+
+{% block home_searchbar_placeholder%}Endereço ou código da pesquisa{% endblock %}
+
+{% block base_footer_local %}
+{% include "common/pt/footer.pt.html" %}
+{% endblock %}

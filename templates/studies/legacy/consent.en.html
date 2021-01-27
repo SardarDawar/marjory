@@ -1,0 +1,31 @@
+{% extends "studies/base_studies.en.html" %}
+{% load static %}
+
+{% block script_page_title %}{{'Consent'}}{% endblock %}
+
+
+{% block main_content %}
+<div class="main-wrap">
+       
+    <div style="display: flex; justify-content: center;">
+        <div class="card-deck my-3" style="max-width: 75vw;">
+            <div class="card my-4 box-shadow">
+                <!-- <div class="card-header">
+                    <h4 class="my-0 font-weight-normal">Consent form</h4>
+                </div> -->
+                <div class="card-body">
+                <!-- <h1 class="card-title pricing-card-title">500 <small class="text-muted">/ mo</small></h1> -->
+                <ul class="list-unstyled mt-2 mb-2 pb-1">
+                    <li>{{replica.consent | linebreaks}}</li>
+                </ul>
+                <button type="button" class="btn btn-lg btn-block btn-outline-primary" onclick="window.location.href='{% url 'tasks' replica.entrypoint %}'">{{'Continue'}}</button>
+                </div>
+            </div>
+        </div>
+      
+    </div>
+</div>
+{% endblock%}
+
+{% block extra_js %}
+{% endblock %}

@@ -1,0 +1,248 @@
+{% extends "scripts/task.html" %}
+{% load static %}
+
+{% block extra_css %}
+{{ block.super }}
+<style>
+    .thanks-submit {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        width: 100%;
+        margin: 0;
+    }
+
+    .thanks-submit > input {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .svg-arrow-straight svg {
+        min-width: 10vw;
+        max-width: 15vw;
+    }
+
+    .svg-arrow-double svg {
+        min-width: 14vw;
+        max-width: 14vw;
+        height: auto;
+    }
+
+    @media (min-width: 1500px) {
+    
+        .svg-arrow-double svg {
+            min-width: 13vw;
+            max-width: 13vw;
+            height: auto;
+        }
+
+    }
+
+    @media (min-width: 750px) and (max-width: 1500px) {
+    
+        .svg-arrow-double svg {
+            min-width: 14vw;
+            max-width: 14vw;
+            height: auto;
+        }
+
+    }
+
+    @media (min-width: 576px) and (max-width: 750px) {
+    
+        .svg-arrow-double svg {
+            min-width: 15vw;
+            max-width: 15vw;
+            height: auto;
+        }
+
+    }
+
+    @media (max-height: 750px) {
+    
+        .card {
+            min-height: 0;
+            min-width: 0;
+        }
+
+        .card a img {
+            max-width: calc(55vh - 82px - 40px);
+            min-width: 0;
+        }
+
+        .card a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-wrap-deck .card a img {
+            max-width: calc(45vh - 82px - 40px);
+            margin: 10px !important;
+        }
+
+        .card-wrap-deck .card a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .svg-arrow-double svg {
+            min-width: 13vw;
+            max-width: 13vw;
+            height: auto;
+        }
+
+    }
+
+    @media (max-width: 576px) {
+
+        .svg-arrow-straight > svg {
+            max-width: 100px;
+            min-width: 10px;
+        }
+
+        .svg-arrow-double, .svg-arrow-double > svg {
+            min-width: 125px;
+        }
+
+        .card-outer {
+            overflow-x: auto;
+        }
+
+        .card-ent-cd {
+            min-width: 0 !important;
+        }
+
+    }
+
+    @media (max-height: 400px) {
+        .card a img {
+            margin: 0 !important;
+        }
+
+        .svg-arrow-double svg {
+            min-width: 10vw;
+            max-width: 10vw;
+            height: auto;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block main_content %}
+<div class="main-wrap">
+       
+    <div style="display: flex; align-items: center; flex-direction: column;" style="max-width: 95vw;">
+
+        
+        <h5 class="mb-1 font-weight-normal" style="width: 95vw; min-width: 95vw; max-width: 95vw; margin-top: 35px; padding-left: 15px; padding-right: 15px;">{% block task_statement %}{% endblock %}</h5>
+        
+        <div class="mt-4 mb-0" style="max-width: 85vw; min-width: 85vw; display: flex; flex-direction: row; align-content: center; justify-content: center;">
+
+            <div style="max-width: 22vw; display: flex; align-items: center; justify-content: center;">
+                <div class="card my-4 box-shadow">
+                    <div class="card-header text-center">
+                        <h5 class="my-0 font-weight-normal">{{slot1.value}}</h5>
+                    </div>
+                    <a href="{{ slot2.content.url }}" data-toggle="lightbox" data-title="{{slot1.value}}">
+                        <img class="card-img-bottom my-4" src="{{ slot2.content.url }}" alt="Card image cap">
+                    </a>
+                </div>
+            </div>
+
+            <div class="svg-arrow-double" style="width: auto; display: flex; align-items: center; justify-content: center;">
+                <!-- <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="177px" height="497px" viewBox="-0.5 -0.5 177 497" content="&lt;mxfile host=&quot;app.diagrams.net&quot; modified=&quot;2020-11-21T23:47:32.830Z&quot; agent=&quot;5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36&quot; etag=&quot;dUoGa4qZKN9XcAsWJF3v&quot; version=&quot;13.10.0&quot; type=&quot;google&quot;&gt;&lt;diagram id=&quot;RJ4Xbo8XSnIM2H5taD2_&quot; name=&quot;Page-1&quot;&gt;7ZVdT4MwFIZ/DZcmjILj1s1NjZlZMpN529Aj1BUOdmUb/nrL2vIxYqKJV8Yb0vP09D09H4BH5vnpTtIyWyED4QU+O3nk1guCaUD0swG1ASQKDUglZwZNOrDhH2Chb2nFGewHjgpRKF4OYYJFAYkaMColHoduryiGUUuawghsEirGdMuZygyNI7/j98DTzEWe+HYnp87Zgn1GGR57iCw8MpeIyqzy0xxEUztXF3Nu+cVuezEJhfrOgafnR7WNVe1vs4fdy+qdxlhfWZUDFZVN2F5W1a4CULCbppDawhIKj8wY3WfQqE60kalc2OVeUamcb4EFOLbkovHxta3VetZblZe255HfAhs7peVZQOIO5ihQnu9DwnBKkrDZwUomsAbJc1AgNyVNeJFaZXPMtUwXe2YSAzbqd1fASdsWPc6AWlbW2uXYNd71Pev13DEJgip+GMpTO39pK9dGWCPXgQPfvipBbHXcm+IGx0nYfM2pfqMvhMJwKBRf6OiOpKBGOnrRy7pD5zH6wUiF/yP150cquv6tmdJm9wk07t1/hCw+AQ==&lt;/diagram&gt;&lt;/mxfile&gt;"><defs/><g><path d="M 8 248 L 165.52 11.72" fill="none" stroke="#4473c4" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="6 6" pointer-events="stroke"/><path d="M 165.65 18.74 L 166.76 9.86 L 158.99 14.3" fill="none" stroke="#4473c4" stroke-width="2" stroke-miterlimit="10" pointer-events="all"/><path d="M 8 248 L 165.52 484.28" fill="none" stroke="#4473c4" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="6 6" pointer-events="stroke"/><path d="M 158.99 481.7 L 166.76 486.14 L 165.65 477.26" fill="none" stroke="#4473c4" stroke-width="2" stroke-miterlimit="10" pointer-events="all"/></g></svg> -->
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="217px" height="417px" viewBox="-0.5 -0.5 217 417" content="&lt;mxfile host=&quot;app.diagrams.net&quot; modified=&quot;2020-12-01T19:40:52.475Z&quot; agent=&quot;5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36&quot; version=&quot;13.10.5&quot; etag=&quot;ThbT6OoOSdmvpI5meUnO&quot; type=&quot;google&quot;&gt;&lt;diagram id=&quot;FjXdBjeBkLTdEoEKVskC&quot;&gt;7ZVLT8QgEMc/Te+0dHWvbnX1YrLJHjyTMhaUMg2l+/DTSxfoY6uJB0/GSwM/Zv7DPNomtKhPj4Y14hk5qCQj/JTQ+yTL1jdr9+zB2YM8W3lQGck9Skewlx8QIAm0kxzamaFFVFY2c1ii1lDaGWPG4HFu9opqHrVhFSzAvmRqSV8ktyKktSIjfwJZiRg5JeGkZtE4gFYwjscJog8JLQyi9av6VIDqaxfr4v2235wOFzOg7U8cMu9wYKoLuYV72XNMFjS/62vmdtiATuiGs1ZAL5C6jbC1CsvWMmOjrUYNkW2l6m2I2zu1ye6tq5vQ3hUZQIhdseYiYPAdClRoLveheX5Ly7w/wc6UsAMja7Bg9g0rpa6CsneL3XF13fjEgC9aO9YqHTrgJhfQyZqzMzmOPY4tFpP2RmZAMSsPc3kWRq0a5IYIO5QucEbiW5EHnfBSZGsylwj5eq9pT6+EUnKldC3kWlKBXQi5xSTtEV1G5uvxof/j8/fHJ/+1+XHb8dPmzcf/A334BA==&lt;/diagram&gt;&lt;/mxfile&gt;"><defs/><g><path d="M 8 208 L 204.84 11.16" fill="none" stroke="#4473c4" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="6 6" pointer-events="stroke"/><path d="M 203.59 18.07 L 206.42 9.58 L 197.93 12.41" fill="none" stroke="#4473c4" stroke-width="2" stroke-miterlimit="10" pointer-events="all"/><path d="M 8 208 L 204.84 404.84" fill="none" stroke="#4473c4" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="6 6" pointer-events="stroke"/><path d="M 197.93 403.59 L 206.42 406.42 L 203.59 397.93" fill="none" stroke="#4473c4" stroke-width="2" stroke-miterlimit="10" pointer-events="all"/></g></svg>
+            </div>
+            
+            <div class="card-deck card-wrap-deck mt-1 mb-1" style="max-width: 60vw; flex-direction: column;">
+
+                <div class="card box-shadow card-outer mb-1">
+                    <div class="card-header" style="display: flex; flex-direction: row;">
+                        <div class="custom-control custom-radio custom-control-inline" style="display: flex; margin-right: 4px; margin-top: 1px;">
+                            <input type="radio" class="custom-control-input" id="radioTask_1" name="example" value="customEx">
+                            <label class="custom-control-label" for="radioTask_1"></label>
+                        </div>
+                        <h5 style="cursor: pointer;" class="my-0 font-weight-normal" id="custLabelTask_1">{{slot3.value}}</h5>
+                    </div>
+                    <div class="card-opts-wrap" style="display: flex; flex-direction: row; align-items: center; justify-content: center;">
+                        <div class="card-ent-cd card my-4 box-shadow mr-0">
+                            <a href="{{ slot4.content.url }}" data-toggle="lightbox" data-title="{{slot3.value}} (A)" data-footer="{{slot6.value}}">
+                                <img class="card-img-top my-4" src="{{ slot4.content.url }}" alt="Card image cap">
+                            </a>
+                            <div class="card-footer text-center">
+                                <p class="card-text">{{slot6.value}}</p>
+                            </div>                   
+                        </div>
+                        <div class="my-4 svg-arrow-straight" style="width: auto;">    
+                            <!-- <svg style="min-width: 10vw; height: auto;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="137px" height="17px" viewBox="-0.5 -0.5 137 17" content="&lt;mxfile host=&quot;app.diagrams.net&quot; modified=&quot;2020-11-22T00:02:48.729Z&quot; agent=&quot;5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36&quot; version=&quot;13.10.0&quot; etag=&quot;Ri8DRHWFNJ1wFvAmB9eo&quot; type=&quot;google&quot;&gt;&lt;diagram id=&quot;DkZg47LfmU4PQbr32I0z&quot;&gt;jZNLb4QgEMc/jXcU3d1r13bbS5NN9tAzkanQImMQ99FPX1zAR03TXgzzY+Y/zMOEls312bBWvCIHlWSEXxP6mGTZNqPuO4CbB7TIPaiN5B6lEzjJLwiQBNpLDt3C0SIqK9slrFBrqOyCMWPwsnR7R7XM2rIaVuBUMbWmb5Jb4emuIBN/AVmLmDkl4aZh0TmATjCOlxmiTwktDaL1p+Zaghp6F/vi4w6/3I4PM6DtfwIyH3Bmqg+1hXfZWywWNH8YeuYsbEEndM9ZJ2AQSJ0hbKPCsbPM2OirUUNkB6kGH+JspzazPvqmDeMtyAhC7pq1dwGDn1CiQnN/D83zLa3y4QZ7U8ERjGzAgjm1rJK6Dso+LE7H9XXvCwO+Gu3Uq3ScgNtcQCdrbs7lMs04jljMxhuZAcWsPC/lWVi1epQbMxxRusQZCX9FsQk68aeIOxIlQr0+aj7TH0Kb3R9CbiQ12JWQO8zKntB9ZaI5raZ3n/5v+vQN&lt;/diagram&gt;&lt;/mxfile&gt;"><defs/><g><path d="M 8 8 L 123.53 8" fill="none" stroke="#4473c4" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="6 6" pointer-events="stroke"/><path d="M 117.76 12 L 125.76 8 L 117.76 4" fill="none" stroke="#4473c4" stroke-width="2" stroke-miterlimit="10" pointer-events="all"/></g></svg> -->
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="217px" height="17px" viewBox="-0.5 -0.5 217 17" content="&lt;mxfile host=&quot;app.diagrams.net&quot; modified=&quot;2020-12-01T19:51:07.025Z&quot; agent=&quot;5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36&quot; version=&quot;13.10.5&quot; etag=&quot;_Y6d1QOaY4maLOi1OF5i&quot; type=&quot;google&quot;&gt;&lt;diagram id=&quot;iWl5xZolylAhPRZ9SJYI&quot;&gt;jZNNb8MgDIZ/Ta4TgXTrdc3a7TKpUg87o+AlbARHhLTpfv1IgXwsqrQeKvxgXoNfJ2F53b8a3lTvKEAllIg+YS8JpdvHrfsfwNWDjG48KI0UHqUTOMkfCJAE2kkB7SLRIiormyUsUGso7IJxY/CyTPtEtaza8BJW4FRwtaYfUtgqPGtDJv4Gsqxi5ZSEnZrH5ADaigu8zBDbJyw3iNav6j4HNfQu9sWfO9zZHS9mQNv/HKD+wJmrLrwt3Mte42NBi+ehZy7CBnTCdoK3FQwCqQsqW6uwbC03NuZq1BDZQaohh7jYqc2ir65ugr0bMoJQu+TNTcDgN+So0Nzuw7LsiRXZsIOdKeAIRtZgwZwaXkhdBmV/LLrj+rrzDwOxsnbqVTo64CYX0Mmaq0u5TB5Hi6uZvZEZUNzK81Keh1ErR7mxwhGlK0xJH6eEkgcy+wUrwjdCt2SpGJ7vReYW/9VlcdjuKTmLSrArJbeYtWFCtxGK4TSqPn363tn+Fw==&lt;/diagram&gt;&lt;/mxfile&gt;"><defs/><g><path d="M 7 8 L 202.53 8" fill="none" stroke="#4473c4" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="6 6" pointer-events="stroke"/><path d="M 196.76 12 L 204.76 8 L 196.76 4" fill="none" stroke="#4473c4" stroke-width="2" stroke-miterlimit="10" pointer-events="all"/></g></svg>
+                        </div>
+                        <div class="card-ent-cd card my-4 box-shadow ml-0">
+                            <a href="{{ slot5.content.url }}" data-toggle="lightbox" data-title="{{slot3.value}} (B)" data-footer="{{slot7.value}}">
+                                <img class="card-img-top my-4" src="{{ slot5.content.url }}" alt="Card image cap">
+                            </a>
+                            <div class="card-footer text-center">
+                                <p class="card-text">{{slot7.value}}</p>
+                            </div>                   
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card my-4 box-shadow card-outer">
+                    <div class="card-header" style="display: flex; flex-direction: row;">
+                        <div class="custom-control custom-radio custom-control-inline" style="display: flex; margin-right: 4px; margin-top: 1px;">
+                            <input type="radio" class="custom-control-input" id="radioTask_2" name="example" value="customEx">
+                            <label class="custom-control-label" for="radioTask_2"></label>
+                        </div>
+                        <h5 style="cursor: pointer;" class="my-0 font-weight-normal" id="custLabelTask_2">{{slot8.value}}</h5>
+                    </div>
+                    <div class="card-opts-wrap" style="display: flex; flex-direction: row; align-items: center; justify-content: center;">
+                        <div class="card my-4 card-ent-cd box-shadow mr-0">
+                            <a href="{{ slot9.content.url }}" data-toggle="lightbox" data-title="{{slot8.value}} (A)" data-footer="{{slot6.value}}">
+                                <img class="card-img-top my-4" src="{{ slot9.content.url }}" alt="Card image cap">
+                            </a>
+                            <div class="card-footer text-center">
+                                <p class="card-text">{{slot6.value}}</p>
+                            </div>                   
+                        </div>
+                        <div class="my-4 svg-arrow-straight" style="width: auto;">    
+                            <!-- <svg style="min-width: 10vw; height: auto;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="137px" height="17px" viewBox="-0.5 -0.5 137 17" content="&lt;mxfile host=&quot;app.diagrams.net&quot; modified=&quot;2020-11-22T00:02:48.729Z&quot; agent=&quot;5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36&quot; version=&quot;13.10.0&quot; etag=&quot;Ri8DRHWFNJ1wFvAmB9eo&quot; type=&quot;google&quot;&gt;&lt;diagram id=&quot;DkZg47LfmU4PQbr32I0z&quot;&gt;jZNLb4QgEMc/jXcU3d1r13bbS5NN9tAzkanQImMQ99FPX1zAR03TXgzzY+Y/zMOEls312bBWvCIHlWSEXxP6mGTZNqPuO4CbB7TIPaiN5B6lEzjJLwiQBNpLDt3C0SIqK9slrFBrqOyCMWPwsnR7R7XM2rIaVuBUMbWmb5Jb4emuIBN/AVmLmDkl4aZh0TmATjCOlxmiTwktDaL1p+Zaghp6F/vi4w6/3I4PM6DtfwIyH3Bmqg+1hXfZWywWNH8YeuYsbEEndM9ZJ2AQSJ0hbKPCsbPM2OirUUNkB6kGH+JspzazPvqmDeMtyAhC7pq1dwGDn1CiQnN/D83zLa3y4QZ7U8ERjGzAgjm1rJK6Dso+LE7H9XXvCwO+Gu3Uq3ScgNtcQCdrbs7lMs04jljMxhuZAcWsPC/lWVi1epQbMxxRusQZCX9FsQk68aeIOxIlQr0+aj7TH0Kb3R9CbiQ12JWQO8zKntB9ZaI5raZ3n/5v+vQN&lt;/diagram&gt;&lt;/mxfile&gt;"><defs/><g><path d="M 8 8 L 123.53 8" fill="none" stroke="#4473c4" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="6 6" pointer-events="stroke"/><path d="M 117.76 12 L 125.76 8 L 117.76 4" fill="none" stroke="#4473c4" stroke-width="2" stroke-miterlimit="10" pointer-events="all"/></g></svg> -->
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="217px" height="17px" viewBox="-0.5 -0.5 217 17" content="&lt;mxfile host=&quot;app.diagrams.net&quot; modified=&quot;2020-12-01T19:51:07.025Z&quot; agent=&quot;5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36&quot; version=&quot;13.10.5&quot; etag=&quot;_Y6d1QOaY4maLOi1OF5i&quot; type=&quot;google&quot;&gt;&lt;diagram id=&quot;iWl5xZolylAhPRZ9SJYI&quot;&gt;jZNNb8MgDIZ/Ta4TgXTrdc3a7TKpUg87o+AlbARHhLTpfv1IgXwsqrQeKvxgXoNfJ2F53b8a3lTvKEAllIg+YS8JpdvHrfsfwNWDjG48KI0UHqUTOMkfCJAE2kkB7SLRIiormyUsUGso7IJxY/CyTPtEtaza8BJW4FRwtaYfUtgqPGtDJv4Gsqxi5ZSEnZrH5ADaigu8zBDbJyw3iNav6j4HNfQu9sWfO9zZHS9mQNv/HKD+wJmrLrwt3Mte42NBi+ehZy7CBnTCdoK3FQwCqQsqW6uwbC03NuZq1BDZQaohh7jYqc2ir65ugr0bMoJQu+TNTcDgN+So0Nzuw7LsiRXZsIOdKeAIRtZgwZwaXkhdBmV/LLrj+rrzDwOxsnbqVTo64CYX0Mmaq0u5TB5Hi6uZvZEZUNzK81Keh1ErR7mxwhGlK0xJH6eEkgcy+wUrwjdCt2SpGJ7vReYW/9VlcdjuKTmLSrArJbeYtWFCtxGK4TSqPn363tn+Fw==&lt;/diagram&gt;&lt;/mxfile&gt;"><defs/><g><path d="M 7 8 L 202.53 8" fill="none" stroke="#4473c4" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="6 6" pointer-events="stroke"/><path d="M 196.76 12 L 204.76 8 L 196.76 4" fill="none" stroke="#4473c4" stroke-width="2" stroke-miterlimit="10" pointer-events="all"/></g></svg>
+                        </div>
+                        <div class="card card-ent-cd my-4 box-shadow ml-0">
+                            <a href="{{ slot10.content.url }}" data-toggle="lightbox" data-title="{{slot8.value}} (B)" data-footer="{{slot7.value}}">
+                                <img class="card-img-top my-4" src="{{ slot10.content.url }}" alt="Card image cap">
+                            </a>
+                            <div class="card-footer text-center">
+                                <p class="card-text">{{slot7.value}}</p>
+                            </div>                   
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        
+        <span class="mx-4 px-4 mt-1 mb-1" style="width: 90vw; min-width: 90vw; max-width: 90vw;">
+            <div class="form-row form-row task-tt-submit"> 
+                <input disabled type="submit" name="submit" value="{% block next_task_button %}{% endblock %}" class="btn btn-outline-primary mb-4 mt-3" id="step-submit-btn">
+            </div> 
+        </span>
+
+        <span style="display: none;">
+            <form method="post" id="id_step_form">
+                {% csrf_token %}
+                {{ form }}
+                <button type="submit">Submit</button>
+            </form>
+        </span>
+
+    </div>
+</div>
+
+{% endblock%}
+

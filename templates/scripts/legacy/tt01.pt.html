@@ -1,0 +1,93 @@
+{% extends "studies/base_studies.pt.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" type="text/css" href="{% static 'common/css/vendor/ekko-lightbox.css' %}">
+{{ block.super }}
+{% endblock %}
+
+{% block script_page_title %}{{'Diferença entre indivíduos'}}{% endblock %}
+{% block study_timer %}
+<span class="float-right d-flex flex-row timer-wrap" style="align-items: center;">
+    <div id ="id_time_text" class="mr-3" style="font-size: 15px; display: none;">
+        <span id="id_rem_time_mins">00</span> mins remain    
+    </div>
+    <div id="id_clock_icon" class="" style="border-radius: 50%;">
+        <svg style="cursor:pointer; width: 27px; height: 27px;" aria-hidden="true" focusable="false" data-prefix="fal" data-icon="clock" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-clock fa-w-16 fa-9x"><path fill="currentColor" d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm216 248c0 118.7-96.1 216-216 216-118.7 0-216-96.1-216-216 0-118.7 96.1-216 216-216 118.7 0 216 96.1 216 216zm-148.9 88.3l-81.2-59c-3.1-2.3-4.9-5.9-4.9-9.7V116c0-6.6 5.4-12 12-12h14c6.6 0 12 5.4 12 12v146.3l70.5 51.3c5.4 3.9 6.5 11.4 2.6 16.8l-8.2 11.3c-3.9 5.3-11.4 6.5-16.8 2.6z" class=""></path></svg>
+    </div>
+</span>
+{% endblock %}
+
+{% block main_content %}
+<div class="main-wrap">
+       
+    <div style="display: flex; align-items: center; flex-direction: column;" style="max-width: 95vw;">
+
+        
+        <h5 class="mb-1 font-weight-normal" style="width: 95vw; min-width: 95vw; max-width: 95vw; margin-top: 35px; padding-left: 15px; padding-right: 15px;">{{'No seu julgamento, qual desses indivíduos apresenta condições mais favoráveis de saúde?'}}</h5>
+        
+        <div class="card-deck mt-1 mb-3" style="max-width: 95vw;">
+            <div class="card my-4 box-shadow">
+                <div class="card-header" style="display: flex; flex-direction: row;">
+                    <div class="custom-control custom-radio custom-control-inline" style="display: flex; margin-right: 4px; margin-top: 1px;">
+                        <input type="radio" class="custom-control-input" id="radioTask_1" name="example" value="customEx">
+                        <label class="custom-control-label" for="radioTask_1"></label>
+                    </div>
+                    <h5 style="cursor: pointer;" class="my-0 font-weight-normal" id="custLabelTask_1">{{slot1.value}}</h5>
+                </div>
+                
+                <a href="{{ slot2.content.url }}" data-toggle="lightbox" data-title="{{slot1.value}}">
+                    <img class="card-img-bottom my-4" src="{{ slot2.content.url }}" alt="Card image cap">
+                </a>
+
+                
+            </div>
+            <div class="card my-4 box-shadow">
+                <div class="card-header" style="display: flex; flex-direction: row;">
+                    <div class="custom-control custom-radio custom-control-inline" style="display: flex; margin-right: 4px; margin-top: 1px;">
+                        <input type="radio" class="custom-control-input" id="radioTask_2" name="example" value="customEx">
+                        <label class="custom-control-label" for="radioTask_2"></label>
+                    </div>
+                    <h5 style="cursor: pointer;" class="my-0 font-weight-normal" id="custLabelTask_2">{{slot3.value}}</h5>
+                </div>
+                <a href="{{ slot4.content.url }}" data-toggle="lightbox" data-title="{{slot3.value}}">
+                    <img class="card-img-bottom my-4" src="{{ slot4.content.url }}" alt="Card image cap">
+                </a>
+            </div>
+        </div>
+        
+        <span class="mx-4 px-4 mt-1 mb-5" style="width: 95vw; min-width: 95vw; max-width: 95vw;">
+            <div class="mx-5">
+                <div class="form-row form-row thanks-submit"> 
+                    <input disabled type="submit" name="submit" value="{{'Próxima Tarefa'}}" class="btn btn-primary mb-4 mt-3" id="step-submit-btn">
+                </div> 
+            </div>
+        </span>
+
+        <span style="display: none;">
+            <form method="post" id="id_step_form">
+                {% csrf_token %}
+                {{ form }}
+                <button type="submit">Submit</button>
+            </form>
+        </span>
+
+    </div>
+</div>
+
+
+{% endblock%}
+
+
+{% block extra_js %}
+<script>
+    const step_id = {{step.id}}
+    const remaining_seconds = {{remaining_session_seconds}}
+</script>
+<!-- more vendor js -->
+<script src="{% static 'common/js/vendor/ekko-lightbox.min.js' %}"></script>
+<!-- end more vendor js -->
+<script src="{% static 'common/js/task.js' %}"></script>
+{% endblock %}
+
+

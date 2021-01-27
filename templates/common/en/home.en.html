@@ -1,0 +1,15 @@
+{% extends "common/home.html" %}
+{% load static %}
+
+{% block base_navbar_lang_sel %}
+{% include "common/en/nav.en.html" %}
+{% endblock %}
+
+{% block home_app_tagline %}{% if site_settings.tagline_ENG %} {{ site_settings.tagline_ENG }} {% else %} {{'Project Marjory'}} {% endif %}{% endblock %}
+{% block home_app_about %}{% if site_settings.about_ENG %} {{site_settings.about_ENG}} {% endif %}{% endblock %}
+
+{% block home_searchbar_placeholder%}Shared link or entrypoint{% endblock %}
+
+{% block base_footer_local %}
+{% include "common/en/footer.en.html" %}
+{% endblock %}

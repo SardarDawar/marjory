@@ -1,0 +1,30 @@
+{% extends "studies/base.studies.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" type="text/css" href="{% static 'common/css/vendor/ekko-lightbox.css' %}">
+{{ block.super }}
+{% endblock %}
+
+{% block study_timer %}
+<span class="float-right d-flex flex-row timer-wrap" style="align-items: center;">
+    <div id ="id_time_text" class="mr-3 text-light" style="font-size: 15px; display: none;">
+        <span id="id_rem_time_mins">00</span> {% if request.PREF_LANG and request.PREF_LANG == 'PT' %}min restantes{% else %}mins remain{% endif %}
+    </div>
+    <div id="id_clock_icon" class="text-light script-clock-ico" style="border-radius: 50%;">
+        <svg style="cursor:pointer; width: 27px; height: 27px;" aria-hidden="true" focusable="false" data-prefix="fal" data-icon="clock" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-clock fa-w-16 fa-9x"><path fill="currentColor" d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm216 248c0 118.7-96.1 216-216 216-118.7 0-216-96.1-216-216 0-118.7 96.1-216 216-216 118.7 0 216 96.1 216 216zm-148.9 88.3l-81.2-59c-3.1-2.3-4.9-5.9-4.9-9.7V116c0-6.6 5.4-12 12-12h14c6.6 0 12 5.4 12 12v146.3l70.5 51.3c5.4 3.9 6.5 11.4 2.6 16.8l-8.2 11.3c-3.9 5.3-11.4 6.5-16.8 2.6z" class=""></path></svg>
+    </div>
+</span>
+{% endblock %}
+
+
+{% block extra_js %}
+<script>
+    const step_id = {{step.id}}
+    const remaining_seconds = {{remaining_session_seconds}}
+</script>
+<!-- more vendor js -->
+<script src="{% static 'common/js/vendor/ekko-lightbox.min.js' %}"></script>
+<!-- end more vendor js -->
+<script src="{% static 'common/js/task.js' %}"></script>
+{% endblock %}

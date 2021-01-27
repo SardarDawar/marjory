@@ -1,0 +1,30 @@
+  {% if site_settings.site.links.all %}
+  <div class="col-6 col-md">
+    <h5 class="mb-2">Links</h5>
+    <ul class="list-unstyled text-small">
+      {% for link in site_settings.site.links.all %}
+        <li {% ifnotequal forloop.counter site_settings.links.count %} class="mb-1" {% endifnotequal %}><a class="text-muted" href="{{ link.url }}">{{ link.get_display_name_eng }}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+  {% if site_settings.social_link_facebook or site_settings.social_link_twitter or site_settings.social_link_instagram %}
+  <div class="col-6 col-md">
+    <h5 class="mb-2">Find us on</h5>
+    <ul class="list-unstyled text-small">
+      {% if site_settings.social_link_facebook %}<li class="mb-1"><a class="text-muted" target="_blank" href="https://facebook.com/{{site_settings.social_link_facebook}}">Facebook</a></li>{% endif %}
+      {% if site_settings.social_link_twitter %}<li class="mb-1"><a class="text-muted" target="_blank" href="https://twitter.com/{{site_settings.social_link_twitter}}">Twitter</a></li>{% endif %}
+      {% if site_settings.social_link_instagram %}<li><a class="text-muted" target="_blank" href="https://instagram.com/{{site_settings.social_link_instagram}}">Instagram</a></li>{% endif %}
+    </ul>
+  </div>
+  {% endif %}
+  {% if site_settings.contact_email or site_settings.contact_tel or site_settings.contact_address %}
+  <div class="col-6 col-md">
+    <h5 class="mb-2">Get in touch</h5>
+    <ul class="list-unstyled text-small">
+        {% if site_settings.contact_email %}<li class="mb-1"><a class="text-muted" href="mailto:{{site_settings.contact_email}}">{{site_settings.contact_email}}</a></li>{% endif %}
+        {% if site_settings.contact_tel %}<li class="mb-1"><a class="text-muted" href="tel:{{site_settings.contact_tel}}">{{site_settings.contact_tel}}</a></li>{% endif %}
+        {% if site_settings.contact_address %}<li><a class="text-muted" style="pointer-events: none;">{{site_settings.contact_address}}</a></li>{% endif %}
+    </ul>
+  </div>
+  {% endif %}

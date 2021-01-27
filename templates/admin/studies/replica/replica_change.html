@@ -1,0 +1,328 @@
+{% extends "admin/base_site.html" %}
+{% load i18n admin_urls static admin_modify %}
+
+{% block extrahead %}{{ block.super }}
+<script src="{% url 'admin:jsi18n' %}"></script>
+
+
+
+{{ media }}
+{% endblock %}
+
+<!-- custom links -->
+{% block custom_base_css %}
+<link rel="stylesheet" type="text/css" href="{% static 'common/css/vendor/bootstrap.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'common/css/custom.css' %}">
+{% endblock %}
+<!-- custom links -->
+
+{% block extrastyle %}
+  {{ block.super }}
+  <link rel="stylesheet" type="text/css" href="{% static "admin/css/forms.css" %}">
+  <style>
+    fieldset .form-row {
+      border-bottom: none !important;
+    }
+  </style>  
+{% endblock %}
+
+{% block coltype %}colM{% endblock %}
+
+{% block bodyclass %}{{ block.super }} app-{{ opts.app_label }} model-{{ opts.model_name }} change-form{% endblock %}
+
+{% if not is_popup %}
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+<a href="{% url 'admin:index' %}">{% translate 'Home' %}</a>
+&rsaquo; <a href="{% url 'admin:app_list' app_label=opts.app_label %}">{{ opts.app_config.verbose_name }}</a>
+&rsaquo; {% if has_view_permission %}<a href="{% url opts|admin_urlname:'changelist' %}">{{ opts.verbose_name_plural|capfirst }}</a>{% else %}{{ opts.verbose_name_plural|capfirst }}{% endif %}
+&rsaquo; {% if add %}{% blocktranslate with name=opts.verbose_name %}Add {{ name }}{% endblocktranslate %}{% else %}{{ original|truncatewords:"18" }}{% endif %}
+</div>
+{% endblock %}
+{% endif %}
+
+{% block content %}<div id="content-main">
+{% block object-tools %}
+{% if change %}{% if not is_popup %}
+  <ul class="object-tools">
+    {% block object-tools-items %}
+      {% change_form_object_tools %}
+    {% endblock %}
+  </ul>
+{% endif %}{% endif %}
+{% endblock %}
+<form {% if has_file_field %}enctype="multipart/form-data" {% endif %}{% if form_url %}action="{{ form_url }}" {% endif %}method="post" id="{{ opts.model_name }}_form" novalidate>{% csrf_token %}{% block form_top %}{% endblock %}
+<div>
+{% if is_popup %}<input type="hidden" name="{{ is_popup_var }}" value="1">{% endif %}
+{% if to_field %}<input type="hidden" name="{{ to_field_var }}" value="{{ to_field }}">{% endif %}
+{% if save_on_top %}{% block submit_buttons_top %}{% submit_row %}{% endblock %}{% endif %}
+{% if errors %}
+    <p class="errornote">
+    {% if errors|length == 1 %}{% translate "Please correct the error below." %}{% else %}{% translate "Please correct the errors below." %}{% endif %}
+    </p>
+    {{ adminform.form.non_field_errors }}
+{% endif %}
+
+{% block field_sets %}
+  {% for fieldset in adminform %}
+  <fieldset class="module aligned {{ fieldset.classes }}">
+    {% if fieldset.name %}<h2>{{ fieldset.name }}</h2>{% endif %}
+    {% if fieldset.description %}
+        <div class="description">{{ fieldset.description|safe }}</div>
+    {% endif %}
+    {% for line in fieldset %}
+        {{ line.0.fields }}
+        <div class="form-row{% if line.fields|length_is:'1' and line.errors %} errors{% endif %}{% if not line.has_visible_field %} hidden{% endif %}{% for field in line %}{% if field.field.name %} {% if field.field.name == 'status' %}hidden{% endif %} field-{{ field.field.name }}{% endif %}{% endfor %}">
+            {% if line.fields|length_is:'1' %}{{ line.errors }}{% endif %}
+            {% for field in line %}
+                {% ifnotequal field.field.name 'status' %}
+
+                <div{% if not line.fields|length_is:'1' %} class="fieldBox{% if field.field.name %} field-{{ field.field.name }}{% endif %}{% if not field.is_readonly and field.errors %} errors{% endif %}{% if field.field.is_hidden %} hidden{% endif %}"{% elif field.is_checkbox %} class="checkbox-row"{% endif %}>
+                    {% if not line.fields|length_is:'1' and not field.is_readonly %}{{ field.errors }}{% endif %}
+                    {% if field.is_checkbox %}
+                        {{ field.field }}{{ field.label_tag }}
+                    {% else %}
+                        {{ field.label_tag }}
+                        {% if field.is_readonly %}
+                            <div class="readonly">{{ field.contents }}</div>
+                        {% else %}
+                            {{ field.field }}
+                        {% endif %}
+                    {% endif %}
+                    {% if field.field.help_text %}
+                        <div class="help">{{ field.field.help_text|safe }}</div>
+                    {% endif %}
+                </div>
+
+                {% endifnotequal %}
+            {% endfor %}
+        </div>
+    {% endfor %}
+  </fieldset>
+  {% endfor %}
+{% endblock %}
+
+{% block after_field_sets %}{% endblock %}
+
+{% block inline_field_sets %}
+{% for inline_admin_formset in inline_admin_formsets %}
+    {% include inline_admin_formset.opts.template %}
+{% endfor %}
+{% endblock %}
+
+{% block after_related_objects %}{% endblock %}
+
+{% if object_id %}
+  <!-- form is a change-form -->
+  {% block replica_change__scripts_form %}
+  <div class="results" style="margin-bottom: 1.5rem;" id="table_exp_scr">
+    <div class="breadcrumbs" style="pointer-events: none; padding-left: 0.7rem; padding-right: 0;">
+      <a>EXPERIMENT SCRIPTS</a>
+    </div>
+    <fieldset class="module aligned">
+
+      {% with adminform.form.status as field %}
+      <div class="form-row field-status {% if field.errors %}errors{% endif %}">
+        {% if field.errors %}{{ field.errors }}{% endif %}
+        <div>
+            <label class="required" for="id_status">Status:</label>
+            {{ field }}
+            {{ field.help_text|safe }}
+            {% if field.help_text %}
+                <div class="help">{{ field.help_text|safe }}</div>
+            {% endif %}
+        </div>
+      </div>
+      {% endwith %}
+      <div class="form-row field-filename">
+          <div>
+            <label for="id_filename">Filename:</label>
+            <!-- <input type="file" name="filename" id="id_filename">  -->
+            <input disabled type="text" name="filename" id="id_filename" size="55" value={% if replica.filename %} {{replica.filename}} {% endif %}>
+          </div>
+      </div>
+      <div class="form-row field-candidates">
+        <div>
+          <label for="id_candidates">Candidates:</label>
+          <input disabled type="number" name="candidates" class="vIntegerField" id="id_candidates" value={% if replica.candidates %} {{replica.candidates}} {% else %} 0 {% endif %}>
+          </div>
+      </div>
+      <div class="form-row field-participants">
+        <div>          
+          <label for="id_participants">Participants:</label>
+          <input disabled type="number" name="participants" class="vIntegerField" id="id_participants" value={% if replica.participants %} {{replica.participants}} {% else %} 0 {% endif %}>
+        </div>
+      </div>
+      <div class="form-row field-numtasks">
+        <div>
+          <label for="id_numtasks">Tasks:</label>
+          <input disabled type="number" name="numtasks" class="vIntegerField" id="id_numtasks" value={% if replica.numtasks %} {{replica.numtasks}} {% else %} 0 {% endif %}>
+        </div>
+      </div>
+      <div class="form-row field-numimages">
+        <div>
+          <label for="id_numimages">Images:</label>
+          <input disabled type="number" name="numimages" class="vIntegerField" id="id_numimages" value={% if replica.numimages %} {{replica.numimages}} {% else %} 0 {% endif %}>
+        </div>
+      </div>
+
+      <div class="submit-row" style="margin-bottom: 0; text-align: left;">
+        <!-- <p class="deletelink-box"><a class="deletelink">Delete</a></p> -->
+
+        <input {% if replica.status == 'CANCELLED' %} disabled {% elif replica.candidates %} disabled {% endif %} type="button" value="Upload file with experiment scripts" id="exp_scr_btn">
+        <input {% if replica.status == 'CANCELLED' %} disabled {% elif replica.numimages %} disabled {% endif %} type="button" value="Upload image files" id="images_btn">
+        <input {% if not replica.candidates %} disabled {% endif %} type="button" value="Download file with collected responses" id="resp_down_btn" onclick="download_responses()">
+        <input {% if replica.status == 'CANCELLED' %} disabled {% elif not replica.candidates and not replica.numimages %} disabled {% endif %} type="button" value="Reset" class="default custom" style="margin-right: 5px;" id="exp_scr_rst">
+      </div>
+
+    </fieldset>
+  </div>
+  {% endblock %}
+{% endif %}
+
+{% block submit_buttons_bottom %}{% submit_row %}{% endblock %}
+
+{% block admin_change_form_document_ready %}
+    <script id="django-admin-form-add-constants"
+            src="{% static 'admin/js/change_form.js' %}"
+            {% if adminform and add %}
+                data-model-name="{{ opts.model_name }}"
+            {% endif %}
+            async>
+    </script>
+{% endblock %}
+
+{# JavaScript for prepopulated fields #}
+{% prepopulated_fields_js %}
+
+
+</div>
+</form></div>
+
+
+{% endblock %}
+
+<!-- custom content -->
+{% block custom_base_content %}
+  
+  <form id="scriptsfile-form" enctype="multipart/form-data" style="display: none" method="post" name="fileform">
+    <!-- hidden inputs -->
+    {% csrf_token %}
+    <input type="file" id="exp_scr_upl" style="display: none" name="scriptsfile" required/>  
+  </form>
+  
+  <form id="images-form" enctype="multipart/form-data" style="display: none" method="post" name="imagesform">
+    <!-- hidden inputs -->
+    {% csrf_token %}
+    <input multiple type="file" id="images_upl" style="display: none" name="images" required/>  
+  </form>
+
+  {% block loading_info_modal %}
+  <div class="modal fade" id="loadingInfoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-keyboard="false" data-backdrop='static'>
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" id="loadingInfoModalTitleSpecial" style="display:none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 3px; padding-top: 0; font-size: 16px;"></h3>
+          <h5 class="modal-title" id="loadingInfoModalTitle" style="font-size: 20px; margin-top: 0;">Processing</h5>
+          <h3 class="modal-title" id="loadingInfoModalTitleSecondary" style="text-align: right; bottom: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 5px;"></h3>
+          <button id="loadingInfoModalHeader-close" type="button" class="close" data-dismiss="modal" aria-label="Close" style="display: none;">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" id="loadingInfoModalContent">
+          <span id="loadingInfoModalContent-loader" class="content-loader force-center"><div class="loader" style="width: 40px; height: 40px;"></div></span>
+          <span id="loadingInfoModalContent-text" class="content-text" style="display: none;"></span>
+          <span id="loadingInfoModalContent-progress" style="display: none;">
+            <div class="progress" style="height:30px">
+              <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 10%; height:30px;" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">
+                10%
+              </div>
+            </div>
+          </span>
+        </div>
+        <div id="loadingInfoModal-footer" class="modal-footer" style="display: none;">
+          <button type="button" class="btn btn-primary" data-dismiss="modal" id="loadingInfoModalClose">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endblock %}
+  
+  {% block images_modal %}
+  <div class="modal fade" id="imagesModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-keyboard="false" data-backdrop='static'>
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="imagesModalTitle" style="font-size: 20px; margin-top: 0;">Replica Images Upload</h5>
+          <h5 class="modal-title" id="imagesModalTitle" style="font-size: 16px; margin-top: 3px;"></h5>
+
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" id="imagesModalContent" style="max-height: 60vh;">
+          <table class="table table-hover" id="images-filetable" style="display: none; margin-bottom: 0;">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Type</th>
+                <th scope="col">Size (KB)</th>
+              </tr>
+            </thead>
+            <tbody id="images-filetable-body">
+            </tbody>
+          </table>
+          <span id="images-content-text">
+            Click "Select image files" to select images for upload
+          </span>
+        </div>
+        <div id="imagesModal-footer" class="modal-footer">
+          <button type="button" id="imagesModal-btn-select" class="btn btn-primary">Select image files</button>
+          <button type="button" disabled id="imagesModal-btn-upload" class="btn btn-primary mr-auto">Upload image files</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" id="imagesModalClose">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endblock %}
+
+  {% block confirmation_modal %}
+  <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="confirmationModalTitle" style="font-size: 20px; margin-top: 0;">Confirmation</h5>
+
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" id="confirmationModalContent">
+          ...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-danger" id="confirmationModalConfirm">Yes, I'm sure</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endblock %}
+
+{% endblock %}
+<!-- custom content -->
+
+
+{% block custom_base_js %}
+{% if object_id %}
+<script>
+  const replicaID = {{ replica.id }};
+  const replicaEntrypoint = '{{ replica.entrypoint }}';
+</script>
+<script src="{% static 'common/js/vendor/jquery.min.js' %}"></script>
+<script src="{% static 'common/js/vendor/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'common/js/custom.js' %}"></script>
+<script src="{% static 'common/js/replica.js' %}"></script>
+{% endif %}
+{% endblock %}

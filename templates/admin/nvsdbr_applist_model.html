@@ -1,0 +1,25 @@
+{% load i18n %}
+
+<tr class="model-{{ model_object_name|lower }}{% if model_admin_url in request.path %} current-model{% endif %}">
+    {% if model_admin_url %}
+      <th scope="row"><a href="{{ model_admin_url }}"{% if model_admin_url in request.path %} aria-current="page"{% endif %}>{{ model_name }}</a></th>
+    {% else %}
+      <th scope="row">{{ model_name }}</th>
+    {% endif %}
+
+    {% if model_add_url %}
+      <td><a href="{{ model_add_url }}" class="addlink">{% translate 'Add' %}</a></td>
+    {% else %}
+      <td></td>
+    {% endif %}
+
+    {% if model_admin_url and show_changelinks %}
+      {% if model_view_only %}
+        <td><a href="{{ model_admin_url }}" class="viewlink">{% translate 'View' %}</a></td>
+      {% else %}
+        <td><a href="{{ model_admin_url }}" class="changelink">{% translate 'Change' %}</a></td>
+      {% endif %}
+    {% elif show_changelinks %}
+      <td></td>
+    {% endif %}
+</tr>

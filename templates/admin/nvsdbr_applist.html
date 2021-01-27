@@ -1,0 +1,95 @@
+{% load i18n %}
+
+<!-- app.app_label, app.app_url, app.name -->
+<!-- model.object_name, model.admin_url, model.name, model.add_url, model.view_only -->
+
+<!-- auth -->
+{% with app_label="auth" app_url="/admin/auth/" app_name="Authentication and Authorization" %}
+<div class="app-{{ app_label }} module{% if app_url in request.path %} current-app{% endif %}">
+  <table>
+    <caption><a href="{{ app_url }}" class="section" title="{% blocktranslate with name=app_name %}Models in the {{ name }} application{% endblocktranslate %}">{{ app_name }}</a></caption>
+    
+    {% with model_object_name="Group" model_admin_url="/admin/auth/group/" model_name="Groups" model_add_url="/admin/auth/group/add/" model_view_only=False %}
+      {% include "admin/nvsdbr_applist_model.html" %}
+    {% endwith %}
+
+    {% with model_object_name="User" model_admin_url="/admin/auth/user/" model_name="Users" model_add_url="/admin/auth/user/add/" model_view_only=False %}
+      {% include "admin/nvsdbr_applist_model.html" %}
+    {% endwith %}
+
+  </table>
+</div>
+{% endwith %}
+
+<!-- sites and settings -->
+{% with app_label="sites" app_url="/admin/sites/" app_name="Sites and Settings" %}
+<div class="app-{{ app_label }} module{% if app_url in request.path %} current-app{% endif %}">
+  <table>
+    <caption><a href="{{ app_url }}" class="section" title="{% blocktranslate with name=app_name %}Models in the {{ name }} application{% endblocktranslate %}">{{ app_name }}</a></caption>
+    
+    {% with model_object_name="Site" model_admin_url="/admin/sites/site/" model_name="Sites" model_add_url="/admin/sites/site/add/" model_view_only=False %}
+      {% include "admin/nvsdbr_applist_model.html" %}
+    {% endwith %}
+    
+    {% with model_object_name="Setting" model_admin_url="/admin/common/setting/" model_name="Settings" model_add_url="/admin/common/setting/add/" model_view_only=False %}
+    {% include "admin/nvsdbr_applist_model.html" %}
+    {% endwith %}
+
+    {% with model_object_name="Link" model_admin_url="/admin/common/link/" model_name="Links" model_add_url="/admin/common/link/add/" model_view_only=False %}
+      {% include "admin/nvsdbr_applist_model.html" %}
+    {% endwith %}
+
+  </table>
+</div>
+{% endwith %}
+
+
+<!-- studies -->
+{% with app_label="studies" app_url="/admin/studies/" app_name="Studies, Replicas, and Images" %}
+<div class="app-{{ app_label }} module{% if app_url in request.path %} current-app{% endif %}">
+  <table>
+    <caption><a href="{{ app_url }}" class="section" title="{% blocktranslate with name=app_name %}Models in the {{ name }} application{% endblocktranslate %}">{{ app_name }}</a></caption>
+    
+    {% with model_object_name="Study" model_admin_url="/admin/studies/study/" model_name="Studies" model_add_url="/admin/studies/study/add/" model_view_only=False %}
+      {% include "admin/nvsdbr_applist_model.html" %}
+    {% endwith %}
+
+    {% with model_object_name="Replica" model_admin_url="/admin/studies/replica/" model_name="Replicas" model_add_url="/admin/studies/replica/add/" model_view_only=False %}
+      {% include "admin/nvsdbr_applist_model.html" %}
+    {% endwith %}
+    
+    {% with model_object_name="Image" model_admin_url="/admin/studies/image/" model_name="Images" model_add_url="/admin/studies/image/add/" model_view_only=False %}
+      {% include "admin/nvsdbr_applist_model.html" %}
+    {% endwith %}
+
+  </table>
+</div>
+{% endwith %}
+
+
+<!-- app -->
+{% with app_label="scripts" app_url="/admin/scripts/" app_name="Scripts, Steps, and Components" %}
+<div class="app-{{ app_label }} module{% if app_url in request.path %} current-app{% endif %}">
+  <table>
+    <caption><a href="{{ app_url }}" class="section" title="{% blocktranslate with name=app_name %}Models in the {{ name }} application{% endblocktranslate %}">{{ app_name }}</a></caption>
+    
+    {% with model_object_name="Script" model_admin_url="/admin/scripts/script/" model_name="Scripts" model_add_url="/admin/scripts/script/add/" model_view_only=False %}
+      {% include "admin/nvsdbr_applist_model.html" %}
+    {% endwith %}
+    
+    {% with model_object_name="Step" model_admin_url="/admin/scripts/step/" model_name="Steps" model_add_url="/admin/scripts/step/add/" model_view_only=False %}
+      {% include "admin/nvsdbr_applist_model.html" %}
+    {% endwith %}
+    
+    {% with model_object_name="Component" model_admin_url="/admin/scripts/component/" model_name="Components" model_add_url="/admin/scripts/component/add/" model_view_only=False %}
+      {% include "admin/nvsdbr_applist_model.html" %}
+    {% endwith %}
+    
+    {% with model_object_name="InterestedPerson" model_admin_url="/admin/scripts/interestedperson/" model_name="Interested persons" model_add_url="/admin/scripts/interestedperson/add/" model_view_only=False %}
+      {% include "admin/nvsdbr_applist_model.html" %}
+    {% endwith %}
+
+  </table>
+</div>
+{% endwith %}
+

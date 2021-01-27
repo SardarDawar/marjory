@@ -1,0 +1,150 @@
+html {
+  font-size: 14px;
+}
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+
+
+}
+
+@media (max-width: 768px) {
+  .timer-wrap {
+    margin-left: auto;
+  }
+  .breadcrumbs {
+    font-size: 12px;
+  }
+}
+
+
+
+
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+
+.container {
+  max-width: 960px;
+}
+
+.top-nav {
+  min-height: 82px !important;
+  max-height: 82px !important;
+  overflow: hidden;
+}
+.top-nav-0, .top-nav-1 {
+  min-height: 41px !important;
+  max-height: 41px !important;
+  overflow: hidden;
+}
+
+.main-wrap {
+  overflow-y: auto;
+  margin-top: 0;
+  padding-top: 0;
+  min-height: calc(100vh - 82px - 40px) !important;
+  max-height: calc(100vh - 82px - 40px) !important;
+}
+
+.card-deck .card {
+  min-width: 220px;
+}
+
+.border-top { border-top: 1px solid #e5e5e5; }
+.border-bottom { border-bottom: 1px solid #e5e5e5; }
+
+.box-shadow { box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05); }
+
+
+.footer {
+  font-size: 15px;
+  width: 100%;
+  height: 40px;
+  line-height: 40px; /* Vertically center the text there */
+  background-color: #f5f5f5;
+  min-height: 40px !important;
+  max-height: 40px !important;
+  overflow: hidden;
+
+  border: 0 !important;
+
+  /* display: flex;
+  justify-content: center; */
+}
+
+.footer > .container {
+  padding: 0px;
+  margin : 0;
+  padding-left: 1.5rem !important;
+  padding-right: 1.5rem !important;
+
+  max-height: 40px !important;
+  overflow: hidden;
+
+  width: min-content;
+  max-width: 100% !important;
+  /* min-width: 90% !important; */
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  color:#FFFFFF;
+}
+
+.container > .text-secondary {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.footer span {
+  padding: 0px;
+  max-height: 40px !important;
+  overflow: hidden;
+}
+
+.thanks-submit {
+  padding-left: 5px;
+  padding-right: 5px;
+  margin-bottom: 15px;
+}
+.thanks-submit > input {
+  width: 100%;
+  background: transparent;
+  
+  color: #007bff !important;
+  border-color: #007bff !important;
+}
+
+.thanks-submit > input:hover, .thanks-submit > input:focus {
+  background: #007BFF !important;
+  
+  color: #ffffff !important;
+  border-color: #007bff !important;
+}
+
+
+
+.task-tt-submit {
+  display: flex;
+  align-items: right;
+  justify-content: right;
+  text-align: right;
+
+  padding-left: 5px;
+  padding-right: 5px;
+}
+.task-tt-submit > input {
+  margin-left: auto;
+  width: 100%;
+}
+
+.script-clock-ico.shadow {
+  color: #9ccddd !important;
+  box-shadow: 0 .5rem 1rem #0000004f !important;
+}

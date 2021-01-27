@@ -1,0 +1,40 @@
+{% extends "studies/base_studies.en.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% block script_page_title %}{{'Thanks'}}{% endblock %}
+
+{% block main_content %}
+<div class="main-wrap">
+       
+    <div style="display: flex; align-items: center; flex-direction: column;">
+        <div class="card-deck my-3" style="max-width: 75vw;">
+            <div class="card my-4 box-shadow">
+                <!-- <div class="card-header">
+                    <h4 class="my-0 font-weight-normal">Consent form</h4>
+                </div> -->
+                <div class="card-body">
+                <ul class="list-unstyled mt-2 mb-2">
+                    <li>{{replica.redirect | linebreaks}}</li>
+                </ul>
+                </div>
+            </div>
+        </div>
+        
+        <span class="mx-4 px-4 mt-1 mb-5" style="max-width: 75vw;">
+            <div style="max-width: 50vw;">
+                {% crispy form %}
+            </div>
+        </span>
+
+    </div>
+</div>
+
+
+{% endblock%}
+
+
+{% block extra_js %}
+<script src="{% static 'common/js/thanks.js' %}"></script>
+{% endblock %}

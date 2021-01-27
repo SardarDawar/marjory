@@ -1,0 +1,70 @@
+{% extends "common/base.html" %}
+{% load static %}
+
+
+
+{% block extra_css %}
+<link rel="stylesheet" type="text/css" href="{% static 'common/css/home.css' %}">
+{% endblock %}
+
+{% block base_navbar_lang_sel %}
+    {% if request.PREF_LANG and request.PREF_LANG == 'PT' %}
+        {% include "common/pt/nav.pt.html" %}
+    {% else %}
+        {% include "common/en/nav.en.html" %}
+    {% endif %}
+{% endblock %}
+
+{% block base_footer_local %}
+    {% if request.PREF_LANG and request.PREF_LANG == 'PT' %}
+        {% include "common/pt/footer.pt.html" %}
+    {% else %}
+        {% include "common/en/footer.en.html" %}
+    {% endif %}
+{% endblock %}
+
+{% block main_content %}
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4 mb-5">
+        {% if request.PREF_LANG and request.PREF_LANG == 'PT' %}
+            {% if site_settings.tagline_POR %} {{ site_settings.tagline_POR }} {% endif %}
+        {% else %}
+            {% if site_settings.tagline_ENG %} {{ site_settings.tagline_ENG }} {% endif %}
+        {% endif %}
+    </h1>
+    <p class="lead">
+        {% if request.PREF_LANG and request.PREF_LANG == 'PT' %}
+            Você saiu da aplicação.
+        {% else %}
+            You are now logged out.
+        {% endif %}
+    </p>
+    <a class="lead" style="cursor: pointer;" href="{% url 'home' %}">
+        {% if request.PREF_LANG and request.PREF_LANG == 'PT' %}
+            Retornar à homepage
+        {% else %}
+            Return to homepage
+        {% endif %}
+    </a>
+  </div>
+  
+  <div class="container">
+  
+  <div style="display: flex; justify-content: center;" class="mb-4">
+  
+      <div class="input-group mb-5 mt-4 input-group-lg" style="max-width: 50vw;">
+          <input type="text" id="entrypoint_link" class="form-control" placeholder="{% if request.PREF_LANG and request.PREF_LANG == 'PT' %}Endereço ou código da pesquisa{% else %}Shared link or entrypoint{% endif %}" aria-describedby="basic-addon2">
+          <div class="input-group-append">
+              <button class="btn btn-outline-secondary p-0" type="button" onclick="run_script()">
+                  <svg height="25px" style="overflow: hidden;" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="paper-plane" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-paper-plane fa-w-16 fa-7x pr-3 pl-3"><path fill="currentColor" d="M476 3.2L12.5 270.6c-18.1 10.4-15.8 35.6 2.2 43.2L121 358.4l287.3-253.2c5.5-4.9 13.3 2.6 8.6 8.3L176 407v80.5c0 23.6 28.5 32.9 42.5 15.8L282 426l124.6 52.2c14.2 6 30.4-2.9 33-18.2l72-432C515 7.8 493.3-6.8 476 3.2z" class=""></path></svg>
+              </button>
+          </div>
+      </div>
+  </div>
+
+{% endblock%}
+
+
+{% block extra_js %}
+<script src="{% static 'common/js/home.js' %}"></script>
+{% endblock %}

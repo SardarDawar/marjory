@@ -1,0 +1,167 @@
+#overlay {
+    position: fixed; /* Sit on top of the page content */
+    display: none; /* Hidden by default */
+    width: 100%; /* Full width (cover the whole page) */
+    height: 100%; /* Full height (cover the whole page) */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+    z-index: 500; /* Specify a stack order in case you're using a different order for other elements */
+    cursor: pointer; /* Add a pointer on hover */
+}
+
+
+#content h1 {
+    margin: 0 0 20px !important;
+    font-weight: 300 !important;
+    font-size: 20px !important;
+    color: #666 !important;
+}
+
+div.breadcrumbs a {
+    color: #fff !important;
+}
+
+.submit-row a.deletelink {
+    display: block !important;
+    display: none;
+    background: #ba2121 !important;
+    border-radius: 4px !important;
+    padding: 10px 15px !important;
+    height: auto !important;
+    line-height: 15px !important;
+    color: #fff !important;
+}
+
+.submit-row a.deletelink:focus,
+.submit-row a.deletelink:hover,
+.submit-row a.deletelink:active {
+    background: #a41515 !important;
+}
+
+
+input[type=button].default.custom {
+    background: #417690;
+}
+
+input[type=button].default.custom:active,
+input[type=button].default.custom:focus,
+input[type=button].default.custom:hover {
+    background: #205067;
+}
+
+.loader {
+    border: 7px solid #f3f3f3; /* Light grey */
+    border-top: 7px solid #007BFF; /* Blue */
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 2s linear infinite;
+}
+  
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.force-center {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+
+.modal {
+    overflow: hidden !important;
+}
+.modal-body {
+    overflow: auto !important;
+}
+
+
+.errorlist li {
+    background-position: 100% 12px !important;
+    padding: 0 !important;
+}
+
+.errornote {
+    background-position: 100% 12px !important;
+    padding: 10px 12px !important;
+}
+
+
+
+ul.messagelist li.error {
+    background: #ffefef url(../img/icon-no.svg) 40px 12px no-repeat;
+    background-size: 16px auto;
+}
+
+.errornote {
+    font-size: 14px;
+    font-weight: 700;
+    display: block;
+    padding: 10px 12px;
+    margin: 0 0 10px 0;
+    color: #ba2121;
+    border: 1px solid #ba2121;
+    border-radius: 4px;
+    background-color: #fff;
+    background-position: 5px 12px;
+}
+
+ul.errorlist {
+    margin: 0 0 4px;
+    padding: 0 !important;
+    color: #ba2121;
+    background: #fff;
+}
+
+ul.errorlist li {
+    font-size: 13px;
+    display: block;
+    margin-bottom: 4px;
+}
+
+ul.errorlist li:first-child {
+    margin-top: 0;
+}
+
+ul.errorlist li a {
+    color: inherit;
+    text-decoration: underline;
+}
+
+td ul.errorlist {
+    margin: 0;
+    padding: 0 !important;
+}
+
+td ul.errorlist li {
+    margin: 0;
+}
+
+.form-row.errors {
+    margin: 0 !important;
+    border: none !important;
+    border-bottom: 1px solid #eee !important;
+    background: none !important;
+    display: block !important;
+}
+
+.form-row.errors ul.errorlist li {
+    padding-left: 0 !important;
+}
+
+
+
+.form-row.hidden {
+    display: none !important;
+}
+
+
+
+#nav-sidebar .module table caption {
+    caption-side: top !important;
+}

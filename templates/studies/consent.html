@@ -1,0 +1,35 @@
+{% extends "studies/base.studies.html" %}
+{% load static %}
+
+
+
+
+{% block main_content %}
+<div class="main-wrap">
+       
+    <div style="display: flex; justify-content: center;">
+        <div class="card-deck my-3" style="max-width: 75vw;">
+            <div class="card my-4 box-shadow">
+                <!-- <div class="card-header">
+                    <h4 class="my-0 font-weight-normal">Consent form</h4>
+                </div> -->
+                <div class="card-body" style="padding: 0 !important;">
+                    <!-- <h1 class="card-title pricing-card-title">500 <small class="text-muted">/ mo</small></h1> -->
+                    <ul class="list-unstyled mt-2 mb-0" style="padding: 1.25rem !important;">
+                        <li>{{replica.consent | linebreaks}}</li>
+                    </ul>
+                    <form action="consent" method="POST">
+                        {% csrf_token %}
+                        <input style="display: none;" type="number" name="study_id" value="{{replica.study.id}}">
+                        <button type="submit" class="btn btn-lg btn-block btn-outline-primary">{% block consent_continue_button %}{% endblock %}</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+      
+    </div>
+</div>
+{% endblock%}
+
+{% block extra_js %}
+{% endblock %}

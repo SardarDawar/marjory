@@ -1,0 +1,36 @@
+{% extends "common/base.html" %}
+{% load static %}
+
+
+
+{% block extra_css %}
+<link rel="stylesheet" type="text/css" href="{% static 'common/css/scripts.css' %}">
+{% endblock %}
+
+{% block navbar %}
+<span class="top-nav">
+    <div class="top-nav-0 d-flex flex-row align-items-center pl-3 pr-3 pt-2 pb-2 px-md-4 bg-white border-bottom border-info" style="background: {{ site_settings.color_header_bg }} !important; border-bottom: 1px solid {{ site_settings.color_header_bg }} !important;">
+        <h5 class="my-0 mr-md-auto font-weight-normal" style="cursor: default; color: {{ site_settings.color_header_font }} !important;">{% block base_navbar_title %}{% endblock %}</h5>
+        {% block study_timer %}
+        {% endblock %}
+    </div>
+    <div class="top-nav-1 d-flex flex-row align-items-center pl-3 pr-3 pt-2 pb-2 px-md-4 bg-white border-bottom box-shadow" style="background: {{ site_settings.color_nav_foot_bg }} !important;">
+        <div class="breadcrumbs" style="color: {{ site_settings.color_nav_foot_font }} !important;">
+            {{replica.title}}
+            {% block subtitle_arrow %}› {% endblock %}{% block script_page_title %}{% endblock %}
+        </div>
+    </div>
+</span>
+{% endblock %}
+
+
+{% block footer %}
+<footer class="footer border-top border-secondary" style="background: {{ site_settings.color_nav_foot_bg }} !important;">
+    <div class="container" style="color: {{ site_settings.color_nav_foot_font }} !important;">
+      {{replica.proponent}}&nbsp;&nbsp;&ndash;&nbsp;&nbsp;{{replica.approval}}
+    </div>
+  </footer>
+{% endblock %}
+
+{% block extra_js %}
+{% endblock %}

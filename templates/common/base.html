@@ -1,0 +1,72 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    {% block site_favicon %}
+    <link rel="icon" href="{% static 'common/icons/favicon.svg' %}" type="image/ico" />
+    {% endblock %}
+
+    <title>{% block title %}{{site_settings.app_name}}{% endblock %}</title>
+
+    {% block base_css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'common/css/vendor/bootstrap.min.css' %}">
+    {% endblock %}
+
+    {% block extra_css %}
+    {% endblock %}
+
+  </head>
+
+  <body>
+
+    {% block navbar %}
+    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
+    <h5 class="my-0 mr-md-auto font-weight-normal" style="cursor: pointer;" onclick="window.location.href='{% url 'home' %}'">{{site_settings.app_name}}</h5>
+      {% block base_navbar_lang_sel %}
+      {% endblock %}
+      {% if request.user.is_authenticated %}
+      <nav class="my-2 my-md-0 mr-md-3">
+          <b class="p-2 text-dark">{{request.user.username}}</b>
+          <a class="p-2 text-dark" href="{% url 'admin:index' %}">Admin</a>
+          <a class="p-2 text-dark" href="{% url 'logout' %}">Logout</a>
+      </nav>
+      {% endif %}
+    </div>
+    {% endblock %}
+
+    {% block main_content %}
+    {% endblock %}
+
+    {% block footer %}
+    <div class="container" id="footer">
+      <footer class="pt-4 my-md-5 pt-md-5 border-top">
+        <div class="row">
+          <div class="col-12 col-md">
+            <img class="mb-2" src="{% static 'common/icons/favicon.svg' %}" alt="" width="24" height="24">
+            <small class="d-block mb-3 text-muted">&copy; 2020 {{domain}}</small>
+          </div>
+
+          {% block base_footer_local %}
+          {% endblock %}
+        </div>
+      </footer>
+    </div>
+    {% endblock %}
+
+    {% block base_js %}
+    <script src="{% static 'common/js/vendor/jquery.min.js' %}"></script>
+    <script src="{% static 'common/js/vendor/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'common/js/base.js' %}"></script>
+    {% endblock %}
+
+    {% block extra_js %}
+    {% endblock %}
+    
+  </body>
+</html>
